@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#171816">
+  <title>DVĀRA — A Way Through Complexity</title>
+  <meta name="description" content="DVĀRA is an independent multidisciplinary platform for strategic intelligence, systems thinking and institutional transformation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #171816;
+      --ivory: #f5f2ea;
+      --stone: #b7b6ad;
+      --muted: #777a70;
+      --brass: #b7a17c;
+      --line: rgba(245,242,234,.19);
+      --mono: "DM Mono", monospace;
+      --sans: "DM Sans", sans-serif;
+      --serif: "Playfair Display", Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--ivory);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .mono {
+      font-family: var(--mono);
+      font-size: 10px;
+      line-height: 1.8;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .site-header {
+      min-height: 86px;
+      padding: 0 6.2%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      font-size: 25px;
+      letter-spacing: .19em;
+      font-weight: 500;
+    }
+    .brand span { color: var(--brass); }
+    .brand-note {
+      display: block;
+      margin-top: 5px;
+      font: 9px var(--mono);
+      letter-spacing: .16em;
+      color: var(--stone);
+    }
+    nav { display: flex; gap: 30px; align-items: center; }
+    nav a {
+      color: #d0cec5;
+      font-size: 12px;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--brass); }
+    .nav-contact {
+      border: 1px solid var(--line);
+      padding: 12px 16px;
+    }
+
+    .hero {
+      min-height: 690px;
+      padding: 85px 6.2% 80px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 5%;
+      align-items: center;
+      overflow: hidden;
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      color: var(--brass);
+    }
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--brass);
+    }
+    h1 {
+      margin: 31px 0 26px;
+      font-size: clamp(54px, 6.3vw, 91px);
+      line-height: .99;
+      letter-spacing: -.065em;
+      font-weight: 400;
+    }
+    h1 em {
+      font-family: var(--serif);
+      font-weight: 400;
+      letter-spacing: -.055em;
+      color: var(--brass);
+    }
+    .hero-copy {
+      max-width: 445px;
+      color: #c3c2b9;
+      font-size: 15px;
+      line-height: 1.95;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 25px;
+      margin-top: 36px;
+    }
+    .primary-link {
+      background: var(--ivory);
+      color: var(--ink);
+      padding: 15px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background .2s;
+    }
+    .primary-link:hover { background: var(--brass); }
+    .text-link {
+      font-size: 12px;
+      color: var(--stone);
+      border-bottom: 1px solid var(--muted);
+      padding-bottom: 5px;
+    }
+
+    .gateway {
+      position: relative;
+      min-height: 440px;
+      display: grid;
+      place-items: center;
+      isolation: isolate;
+    }
+    .gateway::before {
+      content: "";
+      position: absolute;
+      width: 84%;
+      height: 84%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(183,161,124,.12), transparent 67%);
+      z-index: -1;
+    }
+    .gateway svg {
+      width: 100%;
+      max-width: 500px;
+      overflow: visible;
+    }
+    .gateway .frame {
+      fill: none;
+      stroke: #b7a17c;
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+    .gateway .fine {
+      fill: none;
+      stroke: rgba(245,242,234,.3);
+      stroke-width: .8;
+      vector-effect: non-scaling-stroke;
+    }
+    .gateway .glow {
+      fill: url(#light);
+      opacity: .9;
+    }
+    .gateway-caption {
+      position: absolute;
+      bottom: 3px;
+      right: 0;
+      color: var(--stone);
+      text-align: right;
+    }
+
+    .manifesto {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 48px 6.2%;
+      display: grid;
+      grid-template-columns: .6fr 1.4fr;
+      gap: 8%;
+      align-items: start;
+    }
+    .manifesto h2 {
+      margin: 0;
+      font-size: clamp(27px, 3.4vw, 43px);
+      line-height: 1.25;
+      letter-spacing: -.04em;
+      font-weight: 400;
+    }
+    .manifesto h2 em {
+      font-family: var(--serif);
+      color: var(--brass);
+    }
+    .manifesto p {
+      color: #bdbdb4;
+      font-size: 14px;
+      line-height: 1.95;
+      max-width: 580px;
+      margin: 0;
+    }
+
+    .capabilities {
+      padding: 100px 6.2% 110px;
+      background: var(--ivory);
+      color: var(--ink);
+    }
+    .section-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      align-items: end;
+      margin-bottom: 49px;
+    }
+    .section-top .mono { color: var(--muted); }
+    .section-top h2 {
+      font-weight: 400;
+      font-size: clamp(38px, 5vw, 61px);
+      line-height: 1.08;
+      letter-spacing: -.06em;
+      margin: 17px 0 0;
+    }
+    .section-intro {
+      max-width: 290px;
+      color: #66685f;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid #d5d2c9;
+      border-left: 1px solid #d5d2c9;
+    }
+    .cap-card {
+      min-height: 230px;
+      padding: 26px 25px;
+      border-right: 1px solid #d5d2c9;
+      border-bottom: 1px solid #d5d2c9;
+      transition: background .25s;
+    }
+    .cap-card:hover { background: #eae6dc; }
+    .cap-number { color: #89877d; }
+    .cap-card h3 {
+      font-size: 19px;
+      font-weight: 500;
+      margin: 37px 0 13px;
+      letter-spacing: -.025em;
+    }
+    .cap-card p {
+      margin: 0;
+      color: #66685f;
+      font-size: 12px;
+      line-height: 1.9;
+      max-width: 290px;
+    }
+
+    .approach {
+      padding: 105px 6.2%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10%;
+      align-items: center;
+    }
+    .approach h2 {
+      font-size: clamp(39px, 5vw, 62px);
+      line-height: 1.08;
+      letter-spacing: -.055em;
+      font-weight: 400;
+      margin: 20px 0;
+    }
+    .approach h2 em {
+      font-family: var(--serif);
+      color: var(--brass);
+    }
+    .approach-copy {
+      color: #bdbdb4;
+      font-size: 14px;
+      line-height: 1.95;
+      max-width: 500px;
+    }
+    .principles { border-top: 1px solid var(--line); }
+    .principle {
+      display: grid;
+      grid-template-columns: 45px 1fr;
+      gap: 17px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .principle .mono { color: var(--brass); }
+    .principle h3 {
+      margin: 0 0 7px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .principle p {
+      margin: 0;
+      color: #aeadA4;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .closing {
+      margin: 0 6.2% 90px;
+      padding: 65px 7%;
+      background: #242520;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+    }
+    .closing h2 {
+      font-size: clamp(36px, 5vw, 60px);
+      letter-spacing: -.06em;
+      line-height: 1.08;
+      font-weight: 400;
+      margin: 17px 0 0;
+    }
+    .closing h2 em {
+      color: var(--brass);
+      font-family: var(--serif);
+    }
+    .closing p {
+      max-width: 340px;
+      color: #bdbdb4;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+    footer {
+      padding: 30px 6.2%;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--stone);
+      font-size: 10px;
+    }
+    footer .brand { font-size: 18px; }
+    footer .mono { font-size: 9px; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-copy, .hero h1, .gateway {
+        animation: reveal .9s ease-out both;
+      }
+      .gateway { animation-delay: .12s; }
+      @keyframes reveal {
+        from { opacity: 0; transform: translateY(13px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+    @media (max-width: 850px) {
+      .site-header { padding: 22px 6%; }
+      nav { gap: 15px; }
+      nav a:not(.nav-contact) { display: none; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 70px;
+        gap: 20px;
+      }
+      .gateway { min-height: 340px; }
+      .gateway svg { max-width: 390px; }
+      .manifesto { grid-template-columns: 1fr; gap: 24px; }
+      .section-top { align-items: start; flex-direction: column; }
+      .cap-grid { grid-template-columns: repeat(2, 1fr); }
+      .approach { grid-template-columns: 1fr; gap: 45px; }
+      .closing { flex-direction: column; align-items: start; }
+    }
+    @media (max-width: 520px) {
+      .brand { font-size: 21px; }
+      .hero { padding-top: 55px; }
+      .hero h1 { font-size: 57px; }
+      .gateway { min-height: 280px; }
+      .capabilities { padding-top: 70px; padding-bottom: 75px; }
+      .cap-grid { grid-template-columns: 1fr; }
+      .cap-card { min-height: 185px; }
+      .cap-card h3 { margin-top: 24px; }
+      .closing { margin: 0 5% 60px; padding: 40px 7%; }
+      footer { align-items: start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="DVĀRA home">DVĀRA<span>.</span><span class="brand-note">STRATEGIC INTELLIGENCE</span></a>
+    <nav aria-label="Main navigation">
+      <a href="#approach">Approach</a>
+      <a href="#capabilities">Capabilities</a>
+      <a class="nav-contact" href="#contact">Start a conversation ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow mono">Independent. Multidisciplinary. Strategic.</div>
+        <h1>Find the<br>structure.<br>Find the <em>way<br>through.</em></h1>
+        <p class="hero-copy">Complex problems rarely exist in isolation. DVĀRA brings together strategic intelligence, systems thinking and institutional insight to understand what is happening, why it is happening, and what can be done about it.</p>
+        <div class="hero-actions">
+          <a class="primary-link" href="#approach">Discover the DVĀRA approach ↗</a>
+          <a class="text-link" href="#capabilities">Explore capabilities</a>
+        </div>
+      </div>
+
+      <div class="gateway" aria-label="Abstract architectural gateway illustration" role="img">
+        <svg viewBox="0 0 500 540" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="light" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#b7a17c" stop-opacity=".34"/>
+              <stop offset="1" stop-color="#b7a17c" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path class="fine" d="M20 470H480M250 20V520M45 490L455 50M45 50L455 490"/>
+          <path class="fine" d="M70 500V180Q70 55 195 55H305Q430 55 430 180V500"/>
+          <path class="frame" d="M115 500V195Q115 100 210 100H290Q385 100 385 195V500"/>
+          <path class="frame" d="M160 500V210Q160 145 225 145H275Q340 145 340 210V500"/>
+          <path class="frame" d="M205 500V225Q205 190 240 190H260Q295 190 295 225V500"/>
+          <path class="glow" d="M205 500V225Q205 190 240 190H260Q295 190 295 225V500Z"/>
+          <path class="fine" d="M70 180H430M115 195H385M160 210H340M205 225H295"/>
+          <path class="fine" d="M70 250L205 300M430 250L295 300M70 340L205 370M430 340L295 370"/>
+          <path class="frame" d="M35 500H465"/>
+          <circle cx="250" cy="225" r="3" fill="#b7a17c"/>
+        </svg>
+        <div class="gateway-caption mono">01 / A way through complexity</div>
+      </div>
+    </section>
+
+    <section class="manifesto" id="approach">
+      <div class="mono">The premise / 001</div>
+      <div>
+        <h2>When the problem is complex, <em>the thinking must go deeper.</em></h2>
+        <p style="margin-top:24px">A visible problem is not always the real problem. Behind it may be a system of incentives, decisions, structures, behaviours and dependencies that conventional approaches fail to see. DVĀRA examines the whole picture before designing the intervention.</p>
+      </div>
+    </section>
+
+    <section class="capabilities" id="capabilities">
+      <div class="section-top">
+        <div>
+          <div class="mono">What we bring together / 002</div>
+          <h2>Different disciplines.<br>One connected picture.</h2>
+        </div>
+        <p class="section-intro">The right response begins with understanding the nature of the problem — not forcing it into a predetermined service.</p>
+      </div>
+
+      <div class="cap-grid">
+        <article class="cap-card">
+          <div class="cap-number mono">01 / Strategy</div>
+          <h3>Strategic Intelligence</h3>
+          <p>Clarifying complex situations, evaluating options, identifying leverage points and informing consequential decisions.</p>
+        </article>
+        <article class="cap-card">
+          <div class="cap-number mono">02 / Systems</div>
+          <h3>Systems Analysis</h3>
+          <p>Examining relationships, dependencies, feedback loops and structural causes that shape outcomes.</p>
+        </article>
+        <article class="cap-card">
+          <div class="cap-number mono">03 / Governance</div>
+          <h3>Governance & Accountability</h3>
+          <p>Analysing decision structures, responsibility, oversight, institutional performance and accountability failures.</p>
+        </article>
+        <article class="cap-card">
+          <div class="cap-number mono">04 / Risk</div>
+          <h3>Risk & Decision Support</h3>
+          <p>Identifying exposures, testing assumptions and evaluating consequences before decisions become costly.</p>
+        </article>
+        <article class="cap-card">
+          <div class="cap-number mono">05 / Institutions</div>
+          <h3>Institutional & Organisational Transformation</h3>
+          <p>Understanding how structures, behaviours and incentives interact — and how they can be changed.</p>
+        </article>
+        <article class="cap-card">
+          <div class="cap-number mono">06 / Implementation</div>
+          <h3>Practical Intervention</h3>
+          <p>Translating analysis into defensible recommendations, workable plans and meaningful action.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="approach">
+      <div>
+        <div class="eyebrow mono">How DVĀRA thinks / 003</div>
+        <h2>Understand the system.<br>Identify the failure.<br><em>Design the intervention.</em></h2>
+        <p class="approach-copy">DVĀRA does not assume that every problem needs the same discipline, the same method, or the same solution. The approach is shaped by the evidence, the context, the people involved and the system in which the problem exists.</p>
+      </div>
+      <div class="principles">
+        <div class="principle">
+          <div class="mono">01</div>
+          <div><h3>Look beyond the obvious</h3><p>Distinguish symptoms from causes and isolated events from recurring patterns.</p></div>
+        </div>
+        <div class="principle">
+          <div class="mono">02</div>
+          <div><h3>Connect what others separate</h3><p>Bring relevant disciplines, evidence and perspectives into one coherent analysis.</p></div>
+        </div>
+        <div class="principle">
+          <div class="mono">03</div>
+          <div><h3>Make the reasoning defensible</h3><p>Test assumptions, acknowledge uncertainty and explain the basis for conclusions.</p></div>
+        </div>
+        <div class="principle">
+          <div class="mono">04</div>
+          <div><h3>Make the answer workable</h3><p>Design interventions that account for real constraints and practical implementation.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" id="contact">
+      <div>
+        <div class="mono">The starting point / 004</div>
+        <h2>Some problems need<br><em>a different way through.</em></h2>
+      </div>
+      <div>
+        <p>If the challenge is complex, the first step is to understand it properly. Start a conversation about the problem, the context and what a meaningful outcome would look like.</p>
+        <a class="primary-link" href="mailto:hello@dvara.co.za">Start a conversation ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#">DVĀRA<span>.</span></a>
+    <span>Strategic intelligence. Systems thinking. Institutional transformation.</span>
+    <span class="mono">© <span id="year"></span> DVĀRA</span>
+  </footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
